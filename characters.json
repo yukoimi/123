@@ -3,7 +3,7 @@
     "name": "幸运儿",
     "max_hp": 18,
     "passive": {
-      "description": "开局获1胜局，每3回合+1胜局",
+      "description": "开局获1胜局，每3回合+1胜局。熟练度≥10时，胜局概率+10%。",
       "start_wins": 1,
       "win_interval": 3,
       "advanced": {
@@ -23,7 +23,7 @@
     "name": "战士",
     "max_hp": 15,
     "passive": {
-      "description": "攻击伤害+1",
+      "description": "攻击伤害+1。熟练度≥10时，攻击伤害+1.5。",
       "damage_bonus": 1,
       "advanced": {
         "description": "攻击伤害+1.5",
@@ -36,16 +36,16 @@
       "description": "下4回合伤害×2.5，规避效果+1",
       "duration": 4,
       "damage_multiplier": 2.5,
-      "evasion_bonus": 1,
+      "evasion": 1,
       "target_type": "self",
-      "effect_type": "combat_buff"
+      "effect_type": "buff"
     }
   },
   "医师": {
     "name": "医师",
     "max_hp": 15,
     "passive": {
-      "description": "'青囊秘要'回合+2、回血+1，'吃个桃桃'回血+2，无视禁用",
+      "description": "“青囊秘要”持续回合+2、回血+1，“吃个桃桃”回血+2，无视禁用。熟练度≥10时，回血+1。",
       "qingnang_bonus": {"duration": 2, "heal": 1},
       "taotao_bonus": 2,
       "ignore_disable": true,
@@ -68,20 +68,20 @@
     "name": "圣骑士",
     "max_hp": 15,
     "passive": {
-      "description": "'九锡黄龙'减伤+1，规避+2，血量上限消耗-2，无视禁用",
-      "jiuxi_bonus": {"damage_reduction": 1, "evasion": 2, "hp_cost_reduction": 2},
+      "description": "“九锡黄龙”减伤+1，规避+2，血量上限消耗-2，无视禁用。熟练度≥10时，减伤+1。",
+      "jiuxi_bonus": {"damage_reduction": 1, "evasion": 2, "max_hp_cost_reduction": 2},
       "ignore_disable": true,
       "advanced": {
         "description": "减伤+1",
-        "damage_reduction_bonus": 1
+        "damage_reduction": 1
       }
     },
     "skill": {
       "name": "固若金汤",
       "cooldown": 5,
       "description": "3回合无敌，结束后获1次无视回合的控制",
-      "invincible_duration": 3,
-      "post_control": 1,
+      "duration": 3,
+      "control_ignore": 1,
       "target_type": "self",
       "effect_type": "invincibility"
     }
@@ -91,12 +91,11 @@
     "max_hp": 15,
     "breakthrough_hp": 18,
     "passive": {
-      "description": "死亡后进入幽灵状态，被攻击5次死亡，5回合后复活，获5血+'不屈不挠'",
+      "description": "死亡后进入幽灵状态，被攻击5次死亡，5回合后复活，获5血+“不屈不挠”。熟练度≥10时，复活血量+1。",
       "ghost_hits": 5,
       "revive_time": 5,
       "revive_hp": 5,
       "revive_skill": "不屈不挠",
-      "breakthrough_skill": "悄无声息",
       "advanced": {
         "description": "复活血量+1",
         "revive_hp_bonus": 1
@@ -124,10 +123,10 @@
     "name": "记录员",
     "max_hp": 15,
     "passive": {
-      "description": "每回合自带'将军饮马'（CD2回合）",
+      "description": "每2回合自带“将军饮马”。熟练度≥10时，每1回合触发。",
       "auto_save_cd": 2,
       "advanced": {
-        "description": "CD1回合",
+        "description": "每1回合自带“将军饮马”",
         "auto_save_cd": 1
       }
     },
@@ -137,7 +136,7 @@
       "description": "记录任意玩家前3回合1次技能，最多3次",
       "max_records": 3,
       "history_range": 3,
-      "target_type": "any_player",
+      "target_type": "single_any",
       "effect_type": "record_skill"
     },
     "skill2": {
@@ -154,7 +153,7 @@
     "max_hp": 15,
     "breakthrough_hp": 18,
     "passive": {
-      "description": "无视技能禁用",
+      "description": "无视技能禁用。熟练度≥10时，禁用技能后自身伤害+1。",
       "ignore_disable": true,
       "advanced": {
         "description": "禁用技能时自身伤害+1",
@@ -167,7 +166,7 @@
       "description": "禁用1技能，持续5回合，仅限1技能",
       "duration": 5,
       "skill_limit": 1,
-      "target_type": "any_skill",
+      "target_type": "single_any",
       "effect_type": "disable_skill"
     },
     "skill_breakthrough": {
@@ -177,7 +176,7 @@
       "duration": 5,
       "skill_limit": 1,
       "learn_skill": true,
-      "target_type": "character_skill",
+      "target_type": "single_any",
       "effect_type": "steal_skill"
     }
   },
@@ -185,21 +184,21 @@
     "name": "化妆师",
     "max_hp": 12,
     "passive": {
-      "description": "可主动选择模仿1角色（1次/战斗）",
+      "description": "可主动选择模仿1角色（1次/战斗）。熟练度≥10时，模仿后血量上限+2。",
       "mimic_limit": 1,
       "advanced": {
-        "description": "模仿后血量+2",
-        "mimic_hp_bonus": 2
+        "description": "模仿后血量上限+2",
+        "max_hp_bonus": 2
       }
     },
     "skill": {
       "name": "改头换面",
       "cooldown": 5,
-      "description": "模仿1角色，获1次无视回合控制，控制后变该角色，持续5回合",
+      "description": "模仿1角色，获1次无视回合控制，控制后变该角色，持续5回合，结束后保留血量/技能效果（被动除外）。BOSS战可为队友用。",
       "duration": 5,
-      "ignore_control": 1,
+      "control_ignore": 1,
       "boss_mode_ally": true,
-      "target_type": "any_character",
+      "target_type": "single_any",
       "effect_type": "transform"
     }
   },
@@ -207,18 +206,18 @@
     "name": "机器人",
     "max_hp": 15,
     "passive": {
-      "description": "回复效果减半，无规避",
+      "description": "回复效果减半，无规避。熟练度≥10时，回复效果75%。",
       "heal_multiplier": 0.5,
       "no_evasion": true,
       "advanced": {
-        "description": "减半效果改为75%",
+        "description": "回复效果75%",
         "heal_multiplier": 0.75
       }
     },
     "skill1": {
       "name": "扫射",
       "cooldown": 4,
-      "description": "锁定1人，3回合每回合-1血，可被攻击/控制打断",
+      "description": "锁定1人，3回合每回合-1血，可被攻击/控制打断，若未打断，第3回合后下次攻击/回复-5。",
       "duration": 3,
       "damage_per_turn": 1,
       "final_debuff": 5,
@@ -229,7 +228,7 @@
     "skill2": {
       "name": "待机",
       "cooldown": 3,
-      "description": "进入休眠，每回合回2血，胜局加3血或耗2回合获1格挡",
+      "description": "进入休眠，每回合回2血，胜局加3血或耗2回合获1格挡，无法用技能，可被攻击/控制，随时结束获1格挡。",
       "regen_per_turn": 2,
       "win_heal": 3,
       "block_cost": 2,
@@ -242,7 +241,7 @@
     "name": "催眠师",
     "max_hp": 15,
     "passive": {
-      "description": "无胜局时可与胜利者判定，赢则夺1胜局，输则自身-2血",
+      "description": "无胜局时可与胜利者判定，赢则夺1胜局，输则自身-2血。熟练度≥10时，输血-1。",
       "steal_win_damage": 2,
       "advanced": {
         "description": "输血-1",
@@ -252,7 +251,7 @@
     "skill": {
       "name": "蛊惑",
       "cooldown": 3,
-      "description": "选1人，胜利后被催眠师控制动作",
+      "description": "选1人，猜拳胜利后被催眠师控制动作",
       "target_type": "single_any",
       "effect_type": "mind_control"
     }

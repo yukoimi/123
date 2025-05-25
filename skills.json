@@ -2,287 +2,371 @@
   "退步切掌": {
     "name": "退步切掌",
     "type": "伤害",
+    "description": "对敌方一人造成2点无视减伤的真实伤害。（伤害流：伤害+1）",
     "cooldown": 1,
-    "description": "对敌方一人造成2滴血的无视减伤的真实伤害",
-    "damage": 2,
     "target_type": "single_enemy",
-    "ignore_defense": true,
-    "effect_type": "direct_damage"
+    "effects": [
+      {"type": "direct_damage", "value": 2, "true_damage": true, "style_bonus": {"伤害流": {"value": 1}}}
+    ]
   },
   "并步亮掌": {
     "name": "并步亮掌",
     "type": "伤害",
+    "description": "使敌方两人各扣1点血。（伤害流：伤害+1）",
     "cooldown": 0,
-    "description": "使敌方两人各扣1滴血",
-    "damage": 1,
     "target_type": "two_enemies",
-    "effect_type": "direct_damage"
+    "effects": [
+      {"type": "direct_damage", "value": 1, "style_bonus": {"伤害流": {"value": 1}}}
+    ]
   },
   "虚步亮掌": {
     "name": "虚步亮掌",
     "type": "控制",
+    "description": "以自身血量-3为代价，选定两人控制1回合。（控制流：控制效果+1回合）",
     "cooldown": 2,
-    "description": "以自身血量-3为代价，选定两人控制1回合",
-    "self_damage": 3,
-    "control_turns": 1,
     "target_type": "two_any",
-    "effect_type": "control"
+    "costs": [{"type": "hp", "value": 3}],
+    "effects": [
+      {"type": "control", "duration": 1, "style_bonus": {"控制流": {"duration": 1}}}
+    ]
   },
   "马步架打": {
     "name": "马步架打",
     "type": "伤害",
+    "description": "使敌方单体血量-3。（伤害流：伤害+1）",
     "cooldown": 0,
-    "description": "使敌方单体血量-3",
-    "damage": 3,
     "target_type": "single_enemy",
-    "effect_type": "direct_damage"
+    "effects": [
+      {"type": "direct_damage", "value": 3, "style_bonus": {"伤害流": {"value": 1}}}
+    ]
   },
   "吃个桃桃": {
     "name": "吃个桃桃",
     "type": "回复",
+    "description": "使自身血量+2。（回复流：回血+1）",
     "cooldown": 1,
-    "description": "使自身血量+2",
-    "heal": 2,
     "target_type": "self",
-    "effect_type": "heal"
+    "effects": [
+      {"type": "heal", "value": 2, "style_bonus": {"回复流": {"value": 1}}}
+    ]
   },
   "温酒斩将": {
     "name": "温酒斩将",
     "type": "增益",
+    "description": "自身血量-2，自身造成的所有伤害+2，持续2回合。（增益流：伤害+2.2）",
     "cooldown": 3,
-    "description": "自身血量-2，自身造成的所有伤害+2，持续2回合",
-    "self_damage": 2,
-    "damage_buff": 2,
-    "duration": 2,
     "target_type": "self",
-    "effect_type": "buff"
+    "costs": [{"type": "hp", "value": 2}],
+    "effects": [
+      {"type": "buff", "stat": "damage_bonus", "value": 2, "duration": 2, "style_bonus": {"增益流": {"value": 2.2, "is_absolute": true}}}
+    ]
   },
   "五龙盘打": {
     "name": "五龙盘打",
     "type": "伤害",
+    "description": "蓄力2回合后发动，使除自身外场内所有人血量-3（无法受buff加成）。",
     "cooldown": 4,
-    "description": "蓄力2回合后发动，使除自身外场内所有人血量-3",
-    "charge_time": 2,
-    "damage": 3,
     "target_type": "all_others",
-    "ignore_buff": true,
-    "effect_type": "charge_damage"
+    "charge_time": 2,
+    "ignore_buffs_on_execution": true,
+    "effects": [
+      {"type": "direct_damage", "value": 3}
+    ]
   },
   "献祭": {
     "name": "献祭",
     "type": "增益",
+    "description": "使自身造成的所有伤害×2、控制回合+1，持续3回合，效果结束后自身血量-3。",
     "cooldown": 5,
-    "description": "使自身造成的所有伤害×2、控制回合+1，持续3回合，效果结束后自身血量-3",
-    "damage_multiplier": 2,
-    "control_bonus": 1,
-    "duration": 3,
-    "delayed_damage": 3,
     "target_type": "self",
-    "effect_type": "buff"
+    "effects": [
+      {"type": "buff", "stat": "damage_multiplier", "value": 2, "duration": 3},
+      {"type": "buff", "stat": "control_duration_bonus", "value": 1, "duration": 3},
+      {"type": "delayed_effect", "delay_type": "buff_expiry", "effect": {"type": "direct_damage", "value": 3, "target": "self"}}
+    ]
   },
   "九锡黄龙": {
     "name": "九锡黄龙",
     "type": "防御",
+    "description": "使自身规避下2次伤害，每回合受到的伤害-1（防御流：-2），血量上限-3。",
     "cooldown": 4,
-    "description": "使自身规避下2次伤害，每回合受到的伤害-1，血量上限-3",
-    "evasion": 2,
-    "damage_reduction": 1,
-    "max_hp_cost": 3,
     "target_type": "self",
-    "effect_type": "defense"
+    "costs": [{"type": "max_hp", "value": 3}],
+    "effects": [
+      {"type": "gain_evasion", "value": 2},
+      {"type": "buff", "stat": "damage_reduction", "value": 1, "duration": -1, "style_bonus": {"防御流": {"value": 2, "is_absolute": true}}}
+    ]
   },
   "再来一遍": {
     "name": "再来一遍",
     "type": "控制",
+    "description": "自身血量-2，取消敌方前3回合任意1回合使用的技能，每局限2次。",
     "cooldown": 3,
-    "description": "自身血量-2，取消敌方前3回合任意1回合使用的技能，每局限2次",
-    "self_damage": 2,
-    "target_type": "enemy_history",
-    "usage_limit": 2,
-    "effect_type": "cancel_skill"
+    "target_type": "enemy_history_skill", "history_range": 3,
+    "usage_limit_per_game": 2,
+    "costs": [{"type": "hp", "value": 2}],
+    "effects": [
+      {"type": "cancel_skill_from_history"}
+    ]
   },
   "青囊秘要": {
     "name": "青囊秘要",
     "type": "回复",
+    "description": "自身每回合血量+1，“吃个桃桃”血量恢复+1，持续4回合。（回复流：每回合+2）",
     "cooldown": 4,
-    "description": "自身每回合血量+1，'吃个桃桃'血量恢复+1，持续4回合",
-    "regen": 1,
-    "heal_bonus": 1,
-    "duration": 4,
     "target_type": "self",
-    "effect_type": "regen"
+    "effects": [
+      {"type": "buff", "stat": "heal_over_time", "value": 1, "duration": 4, "style_bonus": {"回复流": {"value": 2, "is_absolute": true}}},
+      {"type": "buff", "stat": "specific_skill_heal_bonus", "skill_name": "吃个桃桃", "value": 1, "duration": 4}
+    ]
   },
   "先驱突击": {
     "name": "先驱突击",
     "type": "增益",
+    "description": "使自身下2回合无论输赢都可进攻，自身伤害+2。（增益流：伤害+2.2）",
     "cooldown": 3,
-    "description": "使自身下2回合无论输赢都可进攻，自身伤害+2",
-    "always_attack": 2,
-    "damage_bonus": 2,
     "target_type": "self",
-    "effect_type": "buff"
+    "effects": [
+      {"type": "buff", "stat": "always_can_attack", "value": true, "duration": 2},
+      {"type": "buff", "stat": "damage_bonus", "value": 2, "duration": 2, "style_bonus": {"增益流": {"value": 2.2, "is_absolute": true}}}
+    ]
   },
   "破釜沉舟": {
     "name": "破釜沉舟",
     "type": "伤害",
+    "description": "与指定1人单挑1回合，赢者吸取对方血量1/2（若对方血量为奇数，+1后吸血），败者血量减1/2（不受血量上限限制）。",
     "cooldown": 3,
-    "description": "与指定1人单挑1回合，赢者吸取对方血量1/2，败者血量减1/2",
-    "target_type": "single_any",
-    "effect_type": "duel"
+    "target_type": "single_any_duel", "duel_rounds": 1,
+    "effects": [
+      {"type": "duel_initiate", "rules": "破釜沉舟"}
+    ]
   },
   "决斗": {
     "name": "决斗",
     "type": "伤害",
+    "description": "与指定1人单挑3回合，伤害最多者胜，赢者不扣血，败者受3回合内敌我造成的所有伤害（不含自损技能）。",
     "cooldown": 5,
-    "description": "与指定1人单挑3回合，伤害最多者胜，赢者不扣血，败者受3回合内敌我造成的所有伤害",
-    "duel_rounds": 3,
-    "target_type": "single_any",
-    "effect_type": "long_duel"
+    "target_type": "single_any_duel", "duel_rounds": 3,
+    "effects": [
+      {"type": "duel_initiate", "rules": "决斗"}
+    ]
   },
   "激昂": {
     "name": "激昂",
     "type": "伤害",
+    "description": "对敌军单体使用，抛硬币（可消耗1胜局选择结果）。正面：自身-2血，敌-5血；反面：自身-5血，敌-2血。",
     "cooldown": 2,
-    "description": "对敌军单体使用，抛硬币。正面：自身-2血，敌-5血；反面：自身-5血，敌-2血",
     "target_type": "single_enemy",
-    "coin_flip": true,
-    "heads_self_damage": 2,
-    "heads_enemy_damage": 5,
-    "tails_self_damage": 5,
-    "tails_enemy_damage": 2,
-    "effect_type": "coin_damage"
+    "use_win_for_choice": true,
+    "effects": [
+      {"type": "coin_flip_damage",
+        "heads": {"self_damage": 2, "enemy_damage": 5},
+        "tails": {"self_damage": 5, "enemy_damage": 2}
+      }
+    ]
   },
   "不屈不挠": {
     "name": "不屈不挠",
     "type": "防御",
-    "cooldown": -1,
-    "description": "受到致命伤害时，血量回复至1，之后3回合获2滴血护盾",
-    "revive_hp": 1,
-    "shield": 2,
-    "shield_duration": 3,
-    "usage_limit": 1,
+    "description": "受到致命伤害时，血量回复至1，之后3回合获2点护盾（不可叠加，每局限1次）。",
+    "cooldown": -1, "usage_limit_per_game": 1, "trigger_on_lethal": true,
     "target_type": "self",
-    "effect_type": "death_save"
+    "effects": [
+      {"type": "death_save", "revive_hp": 1},
+      {"type": "buff", "stat": "shield", "value": 2, "duration": 3, "stackable": false}
+    ]
   },
   "歇步冲拳": {
     "name": "歇步冲拳",
     "type": "伤害",
+    "description": "抛硬币（可消耗1胜局选择结果）。正面：攻击+3，血量-1；反面：血量-4。",
     "cooldown": 2,
-    "description": "抛硬币。正面：攻击+3，血量-1；反面：血量-4",
-    "coin_flip": true,
-    "heads_damage_bonus": 3,
-    "heads_self_damage": 1,
-    "tails_self_damage": 4,
     "target_type": "self",
-    "effect_type": "coin_buff"
+    "use_win_for_choice": true,
+    "effects": [
+      {"type": "coin_flip_effect",
+        "heads": [{"type": "buff", "stat": "damage_bonus", "value": 3, "duration": 1}, {"type": "direct_damage", "value": 1, "target": "self"}],
+        "tails": [{"type": "direct_damage", "value": 4, "target": "self"}]
+      }
+    ]
   },
   "提膝冲拳": {
     "name": "提膝冲拳",
     "type": "伤害",
+    "description": "使1人扣6点血，第2回合起敌方每回合回1血，持续3回合，不受伤害加成，回复可被控制打断。",
     "cooldown": 4,
-    "description": "使1人扣6滴血，第2回合起敌方每回合回1血，持续3回合",
-    "damage": 6,
-    "enemy_regen": 1,
-    "regen_duration": 3,
     "target_type": "single_any",
-    "ignore_buff": true,
-    "effect_type": "damage_with_regen"
+    "effects": [
+      {"type": "direct_damage", "value": 6, "ignore_source_buffs": true},
+      {"type": "apply_debuff_to_target", "debuff": {"type": "heal_over_time", "value": 1, "duration": 3, "source": "enemy", "interruptible_by_control": true}}
+    ]
   },
   "雷公助我": {
     "name": "雷公助我",
     "type": "控制",
+    "description": "在自身输掉的回合改1人（包括自己）的出拳，每局限2次。",
     "cooldown": 3,
-    "description": "在自身输掉的回合改1人（包括自己）的出拳，每局限2次",
-    "target_type": "single_any",
-    "usage_limit": 2,
-    "effect_type": "change_move"
+    "usage_limit_per_game": 2,
+    "target_type": "any_player_move", "trigger_condition": "self_rps_loss",
+    "effects": [
+      {"type": "change_rps_move"}
+    ]
   },
   "将军饮马": {
     "name": "将军饮马",
     "type": "回复",
+    "description": "记录当前状态，5回合内再次使用可回溯，过期作废。",
     "cooldown": 5,
-    "description": "记录当前状态，5回合内再次使用可回溯，过期作废",
-    "duration": 5,
     "target_type": "self",
-    "effect_type": "save_state"
+    "effects": [
+      {"type": "save_player_state", "duration": 5, "action_on_reuse": "revert_to_saved_state"}
+    ]
   },
   "旁观者": {
     "name": "旁观者",
     "type": "防御",
+    "description": "进入不在场状态，无法被攻击，持续3回合。",
     "cooldown": 4,
-    "description": "进入不在场状态，无法被攻击，持续3回合",
-    "duration": 3,
     "target_type": "self",
-    "effect_type": "untargetable"
+    "effects": [
+      {"type": "buff", "stat": "untargetable", "value": true, "duration": 3}
+    ]
   },
   "敬礼": {
     "name": "敬礼",
     "type": "控制",
+    "description": "指定1人，3回合内无法获攻击加成，自身回复技能回血-1。",
     "cooldown": 3,
-    "description": "指定1人，3回合内无法获攻击加成，自身回复技能回血-1",
-    "duration": 3,
-    "attack_debuff": true,
-    "self_heal_debuff": 1,
     "target_type": "single_any",
-    "effect_type": "debuff"
+    "effects": [
+      {"type": "apply_debuff_to_target", "debuff": {"type": "negate_attack_buffs", "duration": 3}},
+      {"type": "apply_debuff_to_self", "debuff": {"type": "heal_reduction_on_own_skills", "value": 1, "duration": 3}}
+    ]
   },
   "礼毕": {
     "name": "礼毕",
     "type": "控制",
+    "description": "指定1人解除攻击加成，若自身有“敬礼”状态则先解除。",
     "cooldown": 2,
-    "description": "指定1人解除攻击加成，若自身有'敬礼'状态则先解除",
     "target_type": "single_any",
-    "effect_type": "remove_buff"
+    "effects": [
+      {"type": "remove_buff_from_self_if_present", "buff_name_to_check": "敬礼"},
+      {"type": "remove_attack_buffs_from_target"}
+    ]
   },
   "礼尚往来": {
     "name": "礼尚往来",
-    "type": "回复",
-    "cooldown": 0,
-    "description": "当场内两人互'敬礼'时触发，双方不可攻击/控制，可对对方用回复技能",
-    "target_type": "mutual",
-    "effect_type": "special_state"
+    "type": "回复", 
+    "description": "当场内两人互“敬礼”时触发，双方不可攻击/控制，可对对方用回复技能。",
+    "cooldown": 0, "passive_trigger": "mutual_敬礼",
+    "effects": [
+      {"type": "apply_mutual_state", "state_name": "礼尚往来_active", "restrictions": ["no_attack", "no_control"], "allowances": ["heal_target_敬礼_partner"]}
+    ]
   },
   "格挡冲拳": {
     "name": "格挡冲拳",
-    "type": "伤害",
+    "type": "伤害", 
+    "description": "指定1人血量-2，自身+1规避（持续2回合）。",
     "cooldown": 2,
-    "description": "指定1人血量-2，自身+1规避（持续2回合）",
-    "damage": 2,
-    "self_evasion": 1,
-    "evasion_duration": 2,
     "target_type": "single_any",
-    "effect_type": "damage_and_defense"
+    "effects": [
+      {"type": "direct_damage", "value": 2, "style_bonus": {"伤害流": {"value": 1}}},
+      {"type": "gain_evasion", "value": 1, "duration": 2}
+    ]
   },
   "浑水摸鱼": {
     "name": "浑水摸鱼",
     "type": "控制",
+    "description": "下4回合攻击附加1回合控制（控制流：+1回合），伤害-0.5（四舍五入），无buff加成。",
     "cooldown": 4,
-    "description": "下4回合攻击附加1回合控制，伤害-0.5（四舍五入），无buff加成",
-    "duration": 4,
-    "control_bonus": 1,
-    "damage_penalty": 0.5,
-    "ignore_buff": true,
     "target_type": "self",
-    "effect_type": "attack_modifier"
+    "ignore_source_buffs": true, 
+    "effects": [
+      {"type": "buff", "stat": "attack_applies_control", "duration": 4, "control_duration": 1, "style_bonus": {"控制流": {"control_duration": 1}}},
+      {"type": "buff", "stat": "damage_modifier_penalty", "value": -0.5, "duration": 4}
+    ]
   },
   "准备": {
     "name": "准备",
     "type": "增益",
+    "description": "蓄力5回合，第6回合伤害+4（无法受其他buff加成，增益流：+4.4）。",
     "cooldown": 6,
-    "description": "蓄力5回合，第6回合伤害+4",
-    "charge_time": 5,
-    "damage_bonus": 4,
-    "ignore_buff": true,
     "target_type": "self",
-    "effect_type": "charge_buff"
+    "charge_time": 5,
+    "effects": [
+      {"type": "buff_on_charge_complete", "stat": "damage_bonus", "value": 4, "duration": 1, "ignore_other_buffs": true, "style_bonus": {"增益流": {"value": 4.4, "is_absolute": true}}}
+    ]
   },
   "突破": {
     "name": "突破",
     "type": "增益",
+    "description": "蓄力3回合后突破，期间无法用其他技能，突破后可切换回原状态（无需蓄力）。",
     "cooldown": 5,
-    "description": "蓄力3回合后突破，期间无法用其他技能，突破后可切换回原状态",
-    "charge_time": 3,
     "target_type": "self",
-    "effect_type": "breakthrough"
+    "charge_time": 3, "locks_other_skills_during_charge": true,
+    "effects": [
+      {"type": "character_state_change", "new_state": "breakthrough", "revertible": true, "revert_no_charge": true}
+    ]
+  },
+  "鸿运当头": {
+    "name": "鸿运当头",
+    "type": "增益",
+    "description": "立即获1胜局。",
+    "cooldown": 3,
+    "target_type": "self",
+    "mode_restriction": "无限乱斗",
+    "effects": [
+      {"type": "gain_wins", "value": 1}
+    ]
+  },
+  "BOSS_横扫": {
+    "name": "横扫",
+    "type": "BOSS",
+    "description": "2人各-3血，或1人-5血。",
+    "cooldown": 1,
+    "target_type": "flexible_multi_enemy", "option1_targets": 2, "option1_damage": 3, "option2_targets": 1, "option2_damage": 5,
+    "effects": [{"type": "direct_damage"}]
+  },
+  "BOSS_要害锁定": {
+    "name": "要害锁定",
+    "type": "BOSS",
+    "description": "下3回合攻击无视减伤。",
+    "cooldown": 3,
+    "target_type": "self",
+    "effects": [
+      {"type": "buff", "stat": "true_damage_attacks", "value": true, "duration": 3}
+    ]
+  },
+  "BOSS_震天撼地": {
+    "name": "震天撼地",
+    "type": "BOSS",
+    "description": "全场玩家施加1回合控制。",
+    "cooldown": 1,
+    "target_type": "all_players_except_self",
+    "effects": [
+      {"type": "control", "duration": 1}
+    ]
+  },
+  "BOSS_能屈能伸": {
+    "name": "能屈能伸",
+    "type": "BOSS",
+    "description": "本回合伤害转为治疗，下一回合无法攻击，血量上限-10。",
+    "cooldown": 4,
+    "target_type": "self",
+    "costs": [{"type": "max_hp", "value": 10}],
+    "effects": [
+      {"type": "buff", "stat": "damage_to_heal_conversion", "value": true, "duration": 1},
+      {"type": "buff", "stat": "cannot_attack", "value": true, "duration": 2 }
+    ]
+  },
+  "BOSS_复刻": {
+    "name": "复刻",
+    "type": "BOSS",
+    "description": "学习3回合内1玩家技能（最多2技能）。",
+    "cooldown": 3,
+    "target_type": "player_skill_from_history", "history_range": 3, "max_skills_to_learn": 2,
+    "effects": [
+      {"type": "learn_skill_from_history"}
+    ]
   }
 }
