@@ -1,0 +1,260 @@
+{
+  "幸运儿": {
+    "name": "幸运儿",
+    "max_hp": 18,
+    "passive": {
+      "description": "开局获1胜局，每3回合+1胜局",
+      "start_wins": 1,
+      "win_interval": 3,
+      "advanced": {
+        "description": "胜局概率+10%",
+        "win_probability_bonus": 0.1
+      }
+    },
+    "skill": {
+      "name": "时来运转",
+      "cooldown": 3,
+      "description": "指定1人判定，赢则下个蓄力技能无需蓄力，输则对手下回合伤害-1",
+      "target_type": "single_any",
+      "effect_type": "luck_judgment"
+    }
+  },
+  "战士": {
+    "name": "战士",
+    "max_hp": 15,
+    "passive": {
+      "description": "攻击伤害+1",
+      "damage_bonus": 1,
+      "advanced": {
+        "description": "攻击伤害+1.5",
+        "damage_bonus": 1.5
+      }
+    },
+    "skill": {
+      "name": "无坚不摧",
+      "cooldown": 5,
+      "description": "下4回合伤害×2.5，规避效果+1",
+      "duration": 4,
+      "damage_multiplier": 2.5,
+      "evasion_bonus": 1,
+      "target_type": "self",
+      "effect_type": "combat_buff"
+    }
+  },
+  "医师": {
+    "name": "医师",
+    "max_hp": 15,
+    "passive": {
+      "description": "'青囊秘要'回合+2、回血+1，'吃个桃桃'回血+2，无视禁用",
+      "qingnang_bonus": {"duration": 2, "heal": 1},
+      "taotao_bonus": 2,
+      "ignore_disable": true,
+      "advanced": {
+        "description": "回血+1",
+        "heal_bonus": 1
+      }
+    },
+    "skill": {
+      "name": "妙手回春",
+      "cooldown": 4,
+      "description": "消耗x血量（x≥3），血量上限+x（最多20）",
+      "min_cost": 3,
+      "max_hp_cap": 20,
+      "target_type": "self",
+      "effect_type": "hp_exchange"
+    }
+  },
+  "圣骑士": {
+    "name": "圣骑士",
+    "max_hp": 15,
+    "passive": {
+      "description": "'九锡黄龙'减伤+1，规避+2，血量上限消耗-2，无视禁用",
+      "jiuxi_bonus": {"damage_reduction": 1, "evasion": 2, "hp_cost_reduction": 2},
+      "ignore_disable": true,
+      "advanced": {
+        "description": "减伤+1",
+        "damage_reduction_bonus": 1
+      }
+    },
+    "skill": {
+      "name": "固若金汤",
+      "cooldown": 5,
+      "description": "3回合无敌，结束后获1次无视回合的控制",
+      "invincible_duration": 3,
+      "post_control": 1,
+      "target_type": "self",
+      "effect_type": "invincibility"
+    }
+  },
+  "幽灵": {
+    "name": "幽灵",
+    "max_hp": 15,
+    "breakthrough_hp": 18,
+    "passive": {
+      "description": "死亡后进入幽灵状态，被攻击5次死亡，5回合后复活，获5血+'不屈不挠'",
+      "ghost_hits": 5,
+      "revive_time": 5,
+      "revive_hp": 5,
+      "revive_skill": "不屈不挠",
+      "breakthrough_skill": "悄无声息",
+      "advanced": {
+        "description": "复活血量+1",
+        "revive_hp_bonus": 1
+      }
+    },
+    "skill_normal": {
+      "name": "悄无声息",
+      "cooldown": 5,
+      "description": "5回合动作仅自己可见，结束后公布",
+      "duration": 5,
+      "target_type": "self",
+      "effect_type": "stealth"
+    },
+    "skill_breakthrough": {
+      "name": "不在场证明",
+      "cooldown": 5,
+      "description": "5回合不参与猜拳，每2回合获1胜局",
+      "duration": 5,
+      "win_interval": 2,
+      "target_type": "self",
+      "effect_type": "absence"
+    }
+  },
+  "记录员": {
+    "name": "记录员",
+    "max_hp": 15,
+    "passive": {
+      "description": "每回合自带'将军饮马'（CD2回合）",
+      "auto_save_cd": 2,
+      "advanced": {
+        "description": "CD1回合",
+        "auto_save_cd": 1
+      }
+    },
+    "skill1": {
+      "name": "记录",
+      "cooldown": 2,
+      "description": "记录任意玩家前3回合1次技能，最多3次",
+      "max_records": 3,
+      "history_range": 3,
+      "target_type": "any_player",
+      "effect_type": "record_skill"
+    },
+    "skill2": {
+      "name": "宣读",
+      "cooldown": 2,
+      "description": "重现1段记录（正向/反向）",
+      "reverse_option": true,
+      "target_type": "recorded_skill",
+      "effect_type": "replay_skill"
+    }
+  },
+  "超限者": {
+    "name": "超限者",
+    "max_hp": 15,
+    "breakthrough_hp": 18,
+    "passive": {
+      "description": "无视技能禁用",
+      "ignore_disable": true,
+      "advanced": {
+        "description": "禁用技能时自身伤害+1",
+        "disable_damage_bonus": 1
+      }
+    },
+    "skill_normal": {
+      "name": "偷天换日",
+      "cooldown": 5,
+      "description": "禁用1技能，持续5回合，仅限1技能",
+      "duration": 5,
+      "skill_limit": 1,
+      "target_type": "any_skill",
+      "effect_type": "disable_skill"
+    },
+    "skill_breakthrough": {
+      "name": "支配权能",
+      "cooldown": 5,
+      "description": "禁用1角色专属技能并学习，持续5回合，仅限1技能",
+      "duration": 5,
+      "skill_limit": 1,
+      "learn_skill": true,
+      "target_type": "character_skill",
+      "effect_type": "steal_skill"
+    }
+  },
+  "化妆师": {
+    "name": "化妆师",
+    "max_hp": 12,
+    "passive": {
+      "description": "可主动选择模仿1角色（1次/战斗）",
+      "mimic_limit": 1,
+      "advanced": {
+        "description": "模仿后血量+2",
+        "mimic_hp_bonus": 2
+      }
+    },
+    "skill": {
+      "name": "改头换面",
+      "cooldown": 5,
+      "description": "模仿1角色，获1次无视回合控制，控制后变该角色，持续5回合",
+      "duration": 5,
+      "ignore_control": 1,
+      "boss_mode_ally": true,
+      "target_type": "any_character",
+      "effect_type": "transform"
+    }
+  },
+  "机器人": {
+    "name": "机器人",
+    "max_hp": 15,
+    "passive": {
+      "description": "回复效果减半，无规避",
+      "heal_multiplier": 0.5,
+      "no_evasion": true,
+      "advanced": {
+        "description": "减半效果改为75%",
+        "heal_multiplier": 0.75
+      }
+    },
+    "skill1": {
+      "name": "扫射",
+      "cooldown": 4,
+      "description": "锁定1人，3回合每回合-1血，可被攻击/控制打断",
+      "duration": 3,
+      "damage_per_turn": 1,
+      "final_debuff": 5,
+      "interruptible": true,
+      "target_type": "single_any",
+      "effect_type": "channeled_damage"
+    },
+    "skill2": {
+      "name": "待机",
+      "cooldown": 3,
+      "description": "进入休眠，每回合回2血，胜局加3血或耗2回合获1格挡",
+      "regen_per_turn": 2,
+      "win_heal": 3,
+      "block_cost": 2,
+      "interruptible": true,
+      "target_type": "self",
+      "effect_type": "hibernation"
+    }
+  },
+  "催眠师": {
+    "name": "催眠师",
+    "max_hp": 15,
+    "passive": {
+      "description": "无胜局时可与胜利者判定，赢则夺1胜局，输则自身-2血",
+      "steal_win_damage": 2,
+      "advanced": {
+        "description": "输血-1",
+        "steal_win_damage": 1
+      }
+    },
+    "skill": {
+      "name": "蛊惑",
+      "cooldown": 3,
+      "description": "选1人，胜利后被催眠师控制动作",
+      "target_type": "single_any",
+      "effect_type": "mind_control"
+    }
+  }
+}
